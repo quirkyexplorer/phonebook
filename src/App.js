@@ -83,7 +83,7 @@ function App() {
   const handleDelete = (person) => {
     if (window.confirm(`Delete ${person.name}?`)) {
       nameService.deletePerson(person.id);
-      setPersons(persons.filter((p) => p.id != person.id));
+      setPersons(persons.filter((p) => p.id !== person.id));
     }
     return;
   };
