@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import DisplayPerson from "./components/DisplayPerson";
+import DisplayContact from "./components/DisplayContact";
 import Search from "./components/Search";
 import Form from "./components/Form";
 import nameService from "./services/names";
@@ -117,7 +117,7 @@ function App() {
             .map(
               (person) =>
                 person && ( // this is a conditional check to wait for the data to fetch before rendering
-                  <DisplayPerson
+                  <DisplayContact
                     key={person.id}
                     person={person}
                     handleDelete={handleDelete}

@@ -1,6 +1,6 @@
 import React from "react";
 
-function DisplayPerson({ person, handleDelete }) {
+function DisplayContact({ person, handleDelete }) {
   return (
     <div className="person"> 
         <h3> {` ${person.name} `}     
@@ -12,4 +12,4 @@ function DisplayPerson({ person, handleDelete }) {
   );
 }
 
-export default DisplayPerson;
+export default DisplayContact;
