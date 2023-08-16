@@ -44,37 +44,46 @@ function App() {
   const addName = (event) => {
     event.preventDefault();
 
-    
     const namesOnly = persons.map((person) => person.name?.toLowerCase());
 
+    let capName = newName.charAt(0).toUpperCase() + newName.slice(1);
+
+    const nameObject = {
+        name: capName,
+        number: phoneNumber,
+        };
     
     if (namesOnly.includes(newName.toLowerCase())) {
-      alert(`${newName} has already been added to phonebook`);
+        console.log(newName, phoneNumber, "already added");
+        
+        console.log(nameObject);
+
+        
+        
+        
       return;
     }
 
-    let capName = newName.charAt(0).toUpperCase() + newName.slice(1);
-    console.log("capName", capName);
+    else {
+        console.log("this should not be printing");
+        
 
-    const nameObject = {
-      name: capName,
-      number: phoneNumber,
-    };
+        nameService.create(nameObject).then((returnedPerson) => {
+        
+        setPersons(persons.concat([returnedPerson]));
+        
+        setNotification(`Added ${capName} to the phonebook`);
+        setTimeout(() => {
+            setNotification(null);
+        }, 4000);
 
- 
+        setNewName("");
+        setPhoneNumber("");
+        });
 
-    nameService.create(nameObject).then((returnedPerson) => {
-     
-      setPersons(persons.concat([returnedPerson]));
-      
-      setNotification(`Added ${capName} to the phonebook`);
-      setTimeout(() => {
-        setNotification(null);
-      }, 4000);
 
-      setNewName("");
-      setPhoneNumber("");
-    });
+    } 
+    
   };
 
   const handleDelete = (person) => {
