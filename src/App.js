@@ -44,10 +44,10 @@ function App() {
   const addName = (event) => {
     event.preventDefault();
 
-    // create a new array of only names make them lowercase
+    
     const namesOnly = persons.map((person) => person.name?.toLowerCase());
 
-    // check if already in namesOnly array.
+    
     if (namesOnly.includes(newName.toLowerCase())) {
       alert(`${newName} has already been added to phonebook`);
       return;
@@ -61,15 +61,12 @@ function App() {
       number: phoneNumber,
     };
 
-    // //The new note returned by the backend server is added to the list of notes in our application's state in
-    // //the customary way of using the setPersons function and then resetting the note creation form.
+ 
 
     nameService.create(nameObject).then((returnedPerson) => {
-      //updating the state of persons and newName  returnedPerson is an array
+     
       setPersons(persons.concat([returnedPerson]));
-      // display message here since is been received and updated.
-      //   let name = returnedPerson.name.charAt(0).toUpperCase() + returnedPerson.name.slice(1);
-
+      
       setNotification(`Added ${capName} to the phonebook`);
       setTimeout(() => {
         setNotification(null);
