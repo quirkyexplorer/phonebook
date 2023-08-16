@@ -29,3 +29,13 @@ p {
     padding: 10px;
     margin-bottom: 10px;
   }
+
+.error {
+    color: rgb(144, 19, 0);
+    background: rgb(255, 232, 119);
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}

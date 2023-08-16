@@ -1,9 +1,15 @@
 import React from "react";
 
-function Notification({ message }) {
+function Notification({ message, isError }) {
 
-    if( message == null) {
-        return null; 
+    console.log(message, isError);
+
+    if( isError) {
+        return  (
+            <div className="error">
+                {message}
+            </div>
+        )
     }
 
     return  (

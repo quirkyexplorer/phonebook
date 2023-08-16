@@ -19,10 +19,13 @@ function App() {
   const [newName, setNewName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [search, setSearch] = useState("");
-  const [notification, setNotification] = useState("");
+  const [notification, setNotification] = useState({
+    text: "",
+    isError: false
+  });
 
   useEffect(() => {
-    // console.log("effect");
+    
     nameService.getAll().then((initialPersons) => {
       setPersons(initialPersons);
     });
@@ -58,10 +61,18 @@ function App() {
     if (namesOnly.includes(newName.toLowerCase())) {
             nameService.update(foundPerson.id, nameObject).then((returnedPerson) =>{      
             setPersons(persons.map( person => person.name === returnedPerson.name? returnedPerson : person));
-        });
-            setNotification(`Updated ${capName} in the phonebook`);
+            });
+
+            setNotification({
+                text: `Updated ${capName} in the phonebook`, 
+                isError: false
+            });
+
             setTimeout(() => {
-                setNotification(null);
+                setNotification({
+                    text: "",
+                    isError: false
+                });
             }, 4000);
 
             setNewName("");
@@ -71,17 +82,36 @@ function App() {
     }
 
     else {
-        nameService.create(nameObject).then((returnedPerson) => {
-            setPersons(persons.concat([returnedPerson]));
+        nameService.create(nameObject)
+            .then((returnedPerson) => {
+                setPersons(persons.concat([returnedPerson]));
         
-            setNotification(`Added ${capName} to the phonebook`);
-            setTimeout(() => {
-                setNotification(null);
-            }, 4000);
+                setNotification({
+                    text: `Added ${capName} to the phonebook`,
+                    isError: false
+                });
+                setTimeout(() => {
+                    setNotification({
+                        text: "",
+                        isError: false
+                    });
+                }, 4000);
 
-            setNewName("");
-            setPhoneNumber("");
-        });
+                setNewName("");
+                setPhoneNumber("");
+            })
+            .catch(error => {
+                setNotification({
+                    text: `${error.response.data.error}`,
+                    isError: true    
+                });
+                setTimeout(() => {
+                    setNotification({
+                        text: "",
+                        isError: false
+                    });
+                    }, 4000);
+            });
 
     } 
     
@@ -98,7 +128,7 @@ function App() {
   return (
     <div className="App">
       <h1>Phonebook</h1>
-      <Notification message={notification} />
+      <Notification message={notification.text} isError={notification.isError} />
       <Search value={search} onChange={handleSearchChange} />
       <h2>add a new</h2>
       <Form

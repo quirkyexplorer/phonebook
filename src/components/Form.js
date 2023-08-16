@@ -12,11 +12,11 @@ function Form({
       {" "}
       <form onSubmit={addName}>
         <div>
-          name: <input value={newName} onChange={handleNameChange} />
+          name: <input placeholder="min 3 characters" value={newName} onChange={handleNameChange} />
         </div>
         <br></br>
         <div>
-          number: <input value={phoneNumber} onChange={handlePhoneChange} />
+          number: <input placeholder="ex. format:000-000-0000" value={phoneNumber} onChange={handlePhoneChange} />
         </div>
         <br></br>
         <div>
