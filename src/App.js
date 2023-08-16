@@ -46,6 +46,8 @@ function App() {
 
     const namesOnly = persons.map((person) => person.name?.toLowerCase());
 
+    const foundPerson = persons.find((person) => person.name.toLowerCase() === newName.toLowerCase());
+
     let capName = newName.charAt(0).toUpperCase() + newName.slice(1);
 
     const nameObject = {
@@ -54,33 +56,32 @@ function App() {
         };
     
     if (namesOnly.includes(newName.toLowerCase())) {
-        console.log(newName, phoneNumber, "already added");
-        
-        console.log(nameObject);
+            nameService.update(foundPerson.id, nameObject).then((returnedPerson) =>{      
+            setPersons(persons.map( person => person.name === returnedPerson.name? returnedPerson : person));
+        });
+            setNotification(`Updated ${capName} in the phonebook`);
+            setTimeout(() => {
+                setNotification(null);
+            }, 4000);
 
-        
-        
+            setNewName("");
+            setPhoneNumber("");
         
       return;
     }
 
     else {
-        console.log("this should not be printing");
-        
-
         nameService.create(nameObject).then((returnedPerson) => {
+            setPersons(persons.concat([returnedPerson]));
         
-        setPersons(persons.concat([returnedPerson]));
-        
-        setNotification(`Added ${capName} to the phonebook`);
-        setTimeout(() => {
-            setNotification(null);
-        }, 4000);
+            setNotification(`Added ${capName} to the phonebook`);
+            setTimeout(() => {
+                setNotification(null);
+            }, 4000);
 
-        setNewName("");
-        setPhoneNumber("");
+            setNewName("");
+            setPhoneNumber("");
         });
-
 
     } 
     
