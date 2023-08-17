@@ -16,7 +16,7 @@ function Form({
         </div>
         <br></br>
         <div>
-          number: <input placeholder="ex. format:000-000-0000" value={phoneNumber} onChange={handlePhoneChange} />
+          number: <input placeholder="format:000-000-0000" value={phoneNumber} onChange={handlePhoneChange} />
         </div>
         <br></br>
         <div>

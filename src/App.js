@@ -61,22 +61,34 @@ function App() {
     if (namesOnly.includes(newName.toLowerCase())) {
             nameService.update(foundPerson.id, nameObject).then((returnedPerson) =>{      
             setPersons(persons.map( person => person.name === returnedPerson.name? returnedPerson : person));
-            });
-
             setNotification({
                 text: `Updated ${capName} in the phonebook`, 
                 isError: false
             });
-
             setTimeout(() => {
                 setNotification({
                     text: "",
                     isError: false
                 });
             }, 4000);
-
             setNewName("");
             setPhoneNumber("");
+            })
+            .catch(error => {
+                setNotification({
+                    text: `${error.response.data.error}`,
+                    isError: true    
+                });
+                setTimeout(() => {
+                    setNotification({
+                        text: "",
+                        isError: false
+                    });
+                    }, 4000);
+                }
+            );
+
+                   
         
       return;
     }
@@ -85,7 +97,6 @@ function App() {
         nameService.create(nameObject)
             .then((returnedPerson) => {
                 setPersons(persons.concat([returnedPerson]));
-        
                 setNotification({
                     text: `Added ${capName} to the phonebook`,
                     isError: false
@@ -96,7 +107,6 @@ function App() {
                         isError: false
                     });
                 }, 4000);
-
                 setNewName("");
                 setPhoneNumber("");
             })
