@@ -134,11 +134,12 @@ function App() {
     }
     return;
   };
-
+  
   return (
     <div className="App">
       <h1>Phonebook</h1>
-      <Notification message={notification.text} isError={notification.isError} />
+      { notification.text ? <Notification message={notification.text} isError={notification.isError} /> 
+      : undefined }
       <Search value={search} onChange={handleSearchChange} />
       <h2>add a new</h2>
       <Form

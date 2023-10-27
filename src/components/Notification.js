@@ -1,7 +1,7 @@
 import React from "react";
 
 function Notification({ message, isError }) {
-
+    // console.log(message)
     if(isError) {
         return  (
             <div className="error">

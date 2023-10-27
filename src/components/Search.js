@@ -1,11 +1,12 @@
 import React from "react";
+import search from "./componentsCss/search.css";
 
 function Search({ value, onChange }) {
   return (
     <>
       <div>
         {" "}
-        filter for{" "}
+        {" "}
         <input placeholder="Search.." value={value} onChange={onChange} />
       </div>
     </>
